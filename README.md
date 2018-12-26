@@ -33,4 +33,5 @@ npm install webpack webpack-cli -D
   "start": "webpack-dev-server"
 3.webpack插件将html文件打包到build下可以自动引入生产的js
   npm install html-webpack-plugin -D
-
+  
+4.清除的的WebPack的插件
