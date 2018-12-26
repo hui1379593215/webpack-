@@ -81,21 +81,10 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./src/a.js":
-/*!******************!*\
-  !*** ./src/a.js ***!
-  \******************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("// var msg='yo';\r\n// module.exports= {msg:msg};\r\nconsole.log(\"8\");\n\n//# sourceURL=webpack:///./src/a.js?");
-
-/***/ }),
 
 /***/ "./src/index.js":
 /*!**********************!*\
@@ -105,17 +94,6 @@ eval("// var msg='yo';\r\n// module.exports= {msg:msg};\r\nconsole.log(\"8\");\n
 /***/ (function(module, exports) {
 
 eval("// let msg= require('./a.js');\r\n\r\n// console.log('msg',msg);\r\nconsole.log(7)\n\n//# sourceURL=webpack:///./src/index.js?");
-
-/***/ }),
-
-/***/ 0:
-/*!***************************************!*\
-  !*** multi ./src/index.js ./src/a.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("__webpack_require__(/*! ./src/index.js */\"./src/index.js\");\nmodule.exports = __webpack_require__(/*! ./src/a.js */\"./src/a.js\");\n\n\n//# sourceURL=webpack:///multi_./src/index.js_./src/a.js?");
 
 /***/ })
 
