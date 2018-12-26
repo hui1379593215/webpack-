@@ -1,8 +1,10 @@
 // 基于node遵循commonjs规范
 let path = require('path');
 let HtmlwebpackPlugin = require('html-webpack-plugin');//引入插件
+let CleanWebpackPlugin = require('clean-webpack-plugin');//清空webpack
 module.exports = {
-    entry:'./src/index.js',//入口
+    //多个入口
+    entry:['./src/index.js','./src/a.js'],//入口
     output:{
         filename:'build.[hash:8].js',
         //这个路径必须是绝对路径
@@ -17,6 +19,8 @@ module.exports = {
     },//开发服务器
     module:{},//模块配置
     plugins:[
+        // 每次运行就清理掉
+        new CleanWebpackPlugin('./build'),
         //打包html引入的js插件
         new HtmlwebpackPlugin({
             template:'./src/index.html',
