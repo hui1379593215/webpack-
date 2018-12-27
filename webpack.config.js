@@ -3,6 +3,7 @@ let path = require('path');
 let HtmlwebpackPlugin = require('html-webpack-plugin');//引入插件
 let CleanWebpackPlugin = require('clean-webpack-plugin');//清空webpack
 let webpack =require('webpack');// webpack自带的热更新功能
+let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');//抽取独立的css文件
 module.exports = {
    entry:'./src/index.js',
     output:{
@@ -20,6 +21,10 @@ module.exports = {
         hot: true //不强制刷新，热更新
     },//开发服务器
     plugins:[
+        //抽离出来的文件叫什么名字
+        new ExtractTextWebpackPlugin({
+            filename:'css/index.css'
+        }),
         //热更新模块
         new webpack.HotModuleReplacementPlugin(),
         // 每次运行就清理掉
@@ -37,16 +42,21 @@ module.exports = {
     },//配置解析
     module:{
         rules:[//从右往左写
-            {test:/\.css$/,use:[
-                {loader:'style-loader'},
-                {loader:'css-loader'},
-                {loader:'less-loader'}
-            ]},
-            {test:/\.less$/,use:[
-                {loader:'style-loader'},
-                {loader:'css-loader'},
-                {loader:'less-loader'}
-            ]}
+            {test:/\.css$/,use:ExtractTextWebpackPlugin.extract({
+                use:[
+                    // {loader:'style-loader'},
+                    {loader:'css-loader'},
+                ]
+            })
+           },
+            {test:/\.less$/,use:ExtractTextWebpackPlugin.extract({
+                use:[
+                    // {loader:'style-loader'},
+                    {loader:'css-loader'},
+                    {loader:'less-loader'}
+                ] 
+             })
+            }
         ]
     }//模块配置
 }
