@@ -19,7 +19,6 @@ module.exports = {
         open:true, //自动打开浏览器
         hot: true //不强制刷新，热更新
     },//开发服务器
-    module:{},//模块配置
     plugins:[
         //热更新模块
         new webpack.HotModuleReplacementPlugin(),
@@ -35,5 +34,14 @@ module.exports = {
     mode:'development',//可以更改模式
     resolve:{
         // extensions: ['.js','jsx','.ts', '.tsx' ]
-    }//配置解析
+    },//配置解析
+    module:{
+        rules:[//从右往左写
+            {test:/\.css$/,use:[
+                {loader:'style-loader'},
+                {loader:'css-loader'},
+                {loader:'less-loader'}
+            ]}
+        ]
+    }//模块配置
 }
