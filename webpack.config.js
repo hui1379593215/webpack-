@@ -41,6 +41,11 @@ module.exports = {
                 {loader:'style-loader'},
                 {loader:'css-loader'},
                 {loader:'less-loader'}
+            ]},
+            {test:/\.less$/,use:[
+                {loader:'style-loader'},
+                {loader:'css-loader'},
+                {loader:'less-loader'}
             ]}
         ]
     }//模块配置
