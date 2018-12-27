@@ -2,6 +2,7 @@
 let path = require('path');
 let HtmlwebpackPlugin = require('html-webpack-plugin');//引入插件
 let CleanWebpackPlugin = require('clean-webpack-plugin');//清空webpack
+let webpack =require('webpack');// webpack自带的热更新功能
 module.exports = {
    entry:'./src/index.js',
     output:{
@@ -15,11 +16,13 @@ module.exports = {
         contentBase: "./build",
         port:3000 , //端口号
         compress:true, //服务器压缩
-        open:true //自动打开浏览器
-        // hot: true
+        open:true, //自动打开浏览器
+        hot: true //不强制刷新，热更新
     },//开发服务器
     module:{},//模块配置
     plugins:[
+        //热更新模块
+        new webpack.HotModuleReplacementPlugin(),
         // 每次运行就清理掉
         new CleanWebpackPlugin('./build'),
         //打包html引入的js插件

@@ -1,3 +1,3 @@
 // var msg='yo';
 // module.exports= {msg:msg};
-module.exports="你好啊........."
+module.exports="你好啊.........1"
