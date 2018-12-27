@@ -4,6 +4,9 @@ let HtmlwebpackPlugin = require('html-webpack-plugin');//引入插件
 let CleanWebpackPlugin = require('clean-webpack-plugin');//清空webpack
 let webpack =require('webpack');// webpack自带的热更新功能
 let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');//抽取独立的css文件
+//抽离多个css文件
+let LessExtract= new ExtractTextWebpackPlugin('css/less.css');
+let CssExtract= new ExtractTextWebpackPlugin('css/css.css');
 module.exports = {
    entry:'./src/index.js',
     output:{
@@ -42,14 +45,14 @@ module.exports = {
     },//配置解析
     module:{
         rules:[//从右往左写
-            {test:/\.css$/,use:ExtractTextWebpackPlugin.extract({
+            {test:/\.css$/,use:CssExtract.extract({
                 use:[
                     // {loader:'style-loader'},
                     {loader:'css-loader'},
                 ]
             })
            },
-            {test:/\.less$/,use:ExtractTextWebpackPlugin.extract({
+            {test:/\.less$/,use:LessExtract.extract({
                 use:[
                     // {loader:'style-loader'},
                     {loader:'css-loader'},
