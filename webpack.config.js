@@ -5,8 +5,15 @@ let CleanWebpackPlugin = require('clean-webpack-plugin');//清空webpack
 let webpack =require('webpack');// webpack自带的热更新功能
 let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');//抽取独立的css文件
 //抽离多个css文件
-let LessExtract= new ExtractTextWebpackPlugin('css/less.css');
-let CssExtract= new ExtractTextWebpackPlugin('css/css.css');
+//直接加载到页面改的时候就刷新
+let LessExtract= new ExtractTextWebpackPlugin({
+    filename:'css/less.css',
+    disable:true
+});
+let CssExtract= new ExtractTextWebpackPlugin({
+    filename:'css/css.css',
+    disable:true //禁用掉
+});
 module.exports = {
    entry:'./src/index.js',
     output:{
@@ -44,6 +51,7 @@ module.exports = {
     module:{
         rules:[//从右往左写
             {test:/\.css$/,use:CssExtract.extract({
+                fallback:'style-loader',//上面禁用掉之后使用
                 use:[
                     // {loader:'style-loader'},
                     {loader:'css-loader'},
@@ -51,6 +59,7 @@ module.exports = {
             })
            },
             {test:/\.less$/,use:LessExtract.extract({
+                fallback:'style-loader',//上面禁用掉之后使用
                 use:[
                     // {loader:'style-loader'},
                     {loader:'css-loader'},
