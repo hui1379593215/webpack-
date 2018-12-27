@@ -3,6 +3,8 @@ let path = require('path');
 let HtmlwebpackPlugin = require('html-webpack-plugin');//引入插件
 let CleanWebpackPlugin = require('clean-webpack-plugin');//清空webpack
 let webpack =require('webpack');// webpack自带的热更新功能
+//引用mini-css-extract-plugin来引入css样式
+let MiniCssTractPlugin = require('mini-css-extract-plugin');
 module.exports = {
    entry:'./src/index.js',
     output:{
@@ -20,6 +22,10 @@ module.exports = {
         hot: true //不强制刷新，热更新
     },//开发服务器
     plugins:[
+        //引入css样式
+        new MiniCssTractPlugin({
+            filename:'css/css.css'
+        }),
         //热更新模块
         new webpack.HotModuleReplacementPlugin(),
         // 每次运行就清理掉
@@ -38,12 +44,13 @@ module.exports = {
     module:{
         rules:[//从右往左写
             {test:/\.css$/,use:[
-                {loader:'style-loader'},
-                {loader:'css-loader'},
-                {loader:'less-loader'}
+                // {loader:'style-loader'},
+                MiniCssTractPlugin.loader,
+                {loader:'css-loader'}
             ]},
             {test:/\.less$/,use:[
-                {loader:'style-loader'},
+                // {loader:'style-loader'},
+                MiniCssTractPlugin.loader,
                 {loader:'css-loader'},
                 {loader:'less-loader'}
             ]}
