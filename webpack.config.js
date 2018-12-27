@@ -24,10 +24,8 @@ module.exports = {
         hot: true //不强制刷新，热更新
     },//开发服务器
     plugins:[
-        //抽离出来的文件叫什么名字
-        new ExtractTextWebpackPlugin({
-            filename:'css/index.css'
-        }),
+        CssExtract,
+        LessExtract,
         //热更新模块
         new webpack.HotModuleReplacementPlugin(),
         // 每次运行就清理掉
