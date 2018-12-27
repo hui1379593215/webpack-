@@ -6,14 +6,13 @@ let webpack =require('webpack');// webpack自带的热更新功能
 let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');//抽取独立的css文件
 //抽离多个css文件
 //直接加载到页面改的时候就刷新
-let LessExtract= new ExtractTextWebpackPlugin({
-    filename:'css/less.css',
-    disable:true
-});
+
 let CssExtract= new ExtractTextWebpackPlugin({
     filename:'css/css.css',
-    disable:true //禁用掉
+    // disable:true //禁用掉
 });
+let PurifycssWebpack =require('purifycss-webpack');  //防止引用过多css文件
+let glob =require('glob');//防止引用过多css文件
 module.exports = {
    entry:'./src/index.js',
     output:{
@@ -32,7 +31,7 @@ module.exports = {
     },//开发服务器
     plugins:[
         CssExtract,
-        LessExtract,
+        // LessExtract,
         //热更新模块
         new webpack.HotModuleReplacementPlugin(),
         // 每次运行就清理掉
@@ -43,6 +42,10 @@ module.exports = {
             title:'自动打包标题',
             hash:true,//清理缓存用的
         }),
+        // 没用的css会被消除，必须放在HtmlwebpackPlugin的后面
+        new PurifycssWebpack({
+            path:glob.sync(path.resolve('src/*.html'))
+        })
     ],//插件配置
     mode:'development',//可以更改模式
     resolve:{
@@ -55,18 +58,10 @@ module.exports = {
                 use:[
                     // {loader:'style-loader'},
                     {loader:'css-loader'},
+                    {loader:'postcss-loader'}
                 ]
             })
-           },
-            {test:/\.less$/,use:LessExtract.extract({
-                fallback:'style-loader',//上面禁用掉之后使用
-                use:[
-                    // {loader:'style-loader'},
-                    {loader:'css-loader'},
-                    {loader:'less-loader'}
-                ] 
-             })
-            }
+           }
         ]
     }//模块配置
 }
